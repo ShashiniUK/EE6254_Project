@@ -1,0 +1,24 @@
+
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8005:8005"
+    environment:
+      - PORT=8005
+      - MONGODB_URL=mongodb+srv://PetsCare:PetsCare123@petscenter.lw7lv9i.mongodb.net/pets-colllection?retryWrites=true&w=majority
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:8005
+    depends_on:
+      - backend
